@@ -7,8 +7,8 @@ const app = express();
 connectDB();
 
 // init middleware
-// app.use(bodyPasrse.json({ extended: false }))
-app.use(express.json({ extended: false })); //make req body json
+// app.use(bodyPasrse.json({ extended: false }))   // used to do
+app.use(express.json({ extended: false })); //make req body json, now express includes
 
 app.get('/', (req, res) => res.send('API Running'));
 

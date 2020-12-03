@@ -13,6 +13,7 @@ const User = require('../../models/User');
 // @access Public
 router.get('/', auth, async (req, res) => {
   try {
+    // remove password from the user json
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
   } catch (err) {
@@ -39,15 +40,15 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      // see if user exists
+      // see if user exists, find user from the database, to vali with the req's user
       let user = await User.findOne({ email });
       if (!user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Invalid Credentials' }] }); //need a return
+          .json({ errors: [{ msg: 'Invalid Credentials' }] }); //need a return, use the same msg is a way to protect the user info
       }
 
-      // match email & password
+      // match email & password, compare returns a promise
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {

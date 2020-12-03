@@ -30,7 +30,7 @@ router.post(
     const { name, email, password } = req.body;
 
     try {
-      // see if user exists
+      // ① see if user exists
       let user = await User.findOne({ email });
       if (user) {
         return res
@@ -38,7 +38,7 @@ router.post(
           .json({ errors: [{ msg: 'User already exists' }] }); //need a return
       }
 
-      // get user gravatar
+      // ② get user gravatar
       const avatar = gravatar.url(email, {
         s: '200', //default size
         r: 'pg', //reading
@@ -52,14 +52,14 @@ router.post(
         password,
       });
 
-      // encypt password
+      // ③ encypt password
       const salt = await bcrypt.genSalt(10); //10 is recommended
 
       user.password = await bcrypt.hash(password, salt);
 
       await user.save(); //everything return as promise, give a await before it
 
-      // return jsonwebtoken to login in front end
+      // ④ return jsonwebtoken to login in front end
       const payload = {
         user: {
           id: user.id,
