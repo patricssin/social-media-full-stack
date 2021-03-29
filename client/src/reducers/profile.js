@@ -11,6 +11,7 @@ export default function(state = initState, action) {
 
   switch (type) {
     case 'GET_PROFILE':
+    case 'UPDATE_PROFILE':
       return {
         ...state,
         profile: payload,
