@@ -98,7 +98,7 @@ export const addEducation = (formData, history) => async (dispatch) => {
         'Content-Type' : 'application/json'
       }
     }
-    const res = axios.put('/api/profile/experience',formData, config)
+    const res = axios.put('/api/profile/education',formData, config)
 
     dispatch({
       type: types.UPDATE_PROFILE,

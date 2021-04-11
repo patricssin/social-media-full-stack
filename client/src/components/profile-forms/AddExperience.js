@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {connect } from 'react-redux'
 import {addExperience} from '../../actions/profile'
 
-const AddExperience = ({addExperience}) => {
+const AddExperience = ({addExperience, history}) => {
   const [formData, setFormData] = useState({
     company: '',
     title: '',
@@ -23,48 +23,53 @@ const AddExperience = ({addExperience}) => {
 
   return (
     <Fragment>
-      <h1 class="large text-primary">
+      <h1 className="large text-primary">
        Add An Experience
       </h1>
-      <p class="lead">
-        <i class="fas fa-code-branch"></i> Add any developer/programming
+      <p className="lead">
+        <i className="fas fa-code-branch"></i> Add any developer/programming
         positions that you have had in the past
       </p>
       <small>* = required field</small>
-      <form class="form">
-        <div class="form-group">
-          <input onChange={e => onChange(e)} type="text" placeholder="* Job Title" name="title" required />
+      <form className="form" onSubmit={e => {
+        e.preventDefault()
+        addExperience(formData, history)
+      }}>
+        <div className="form-group">
+          <input onChange={e => onChange(e)} value={title} type="text" placeholder="* Job Title" name="title" required />
         </div>
-        <div class="form-group">
-          <input onChange={e => onChange(e)} type="text" placeholder="* Company" name="company" required />
+        <div className="form-group">
+          <input onChange={e => onChange(e)} value={company} type="text" placeholder="* Company" name="company" required />
         </div>
-        <div class="form-group">
-          <input onChange={e => onChange(e)} type="text" placeholder="Location" name="location" />
+        <div className="form-group">
+          <input onChange={e => onChange(e)} value={location} type="text" placeholder="Location" name="location" />
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <h4>From Date</h4>
-          <input onChange={e => onChange(e)} type="date" name="from" />
+          <input onChange={e => onChange(e)} value={from} type="date" name="from" />
         </div>
-         <div class="form-group">
+         <div className="form-group">
           <p><input onChange={e => {
             setFormData({...formData, current: !current})
             toggleDisabled(!toDateDisabled)
-          }} type="checkbox" name="current" value="" /> Current Job</p>
+          }} type="checkbox" name="current" value={current} /> Current Job</p>
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <h4>To Date</h4>
-          <input onChange={e => onChange(e)} type="date" name="to" />
+          <input onChange={e => onChange(e)} value={to} type="date" name="to" disabled={toDateDisabled ? 'disable' : ''} />
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <textarea
             name="description"
+            onChange={onChange}
+            value={description}
             cols="30"
             rows="5"
             placeholder="Job Description"
           ></textarea>
         </div>
-        <input onChange={e => onChange(e)} type="submit" class="btn btn-primary my-1" />
-        <a class="btn btn-light my-1" href="dashboard.html">Go Back</a>
+        <input onChange={e => onChange(e)} type="submit" className="btn btn-primary my-1" />
+        <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
       </form>
     </Fragment>
   )
@@ -74,4 +79,4 @@ AddExperience.propTypes = {
 
 }
 
-export default connect(null, {addExperience})(AddExperience)
+export default connect(null, {addExperience})(withRouter(AddExperience))

@@ -165,7 +165,7 @@ router.delete('/', auth, async (req, res) => {
 // @access Private
 
 router.put(
-  '/expericence',
+  '/experience',
   [
     auth,
     [
@@ -217,7 +217,7 @@ router.put(
 // @desc   delete profile expericence
 // @access Private
 
-router.delete('/expericence/:exp_id', auth, async (req, res) => {
+router.delete('/experience/:exp_id', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
     // get remove index
