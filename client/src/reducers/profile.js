@@ -23,6 +23,18 @@ export default function(state = initState, action) {
         error: payload,
         loading: false
       }
+    case 'GET_PROFILES':
+      return {
+        ...state,
+        profiles: payload,
+        loading: false
+      }
+    case 'GET_REPOS':
+      return {
+        ...state,
+        repos: payload,
+        loading: false
+      }
     case 'CLEAR_PROFILE':
       return {
         ...state,
