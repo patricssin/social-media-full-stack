@@ -131,14 +131,14 @@ router.get('/user/:user_id', async (req, res) => {
     }).populate('user', ['name', 'avatar']);
 
     if (!profile) return res.status(400).json({ msg: 'Profile not found' });
-    res.json(profile);
+    return res.json(profile);
   } catch (err) {
     console.error(err.message);
     // mongoose's property
     if (err.kind == 'ObjectId') {
       return res.status(400).json({ msg: 'Profile not found' });
     }
-    res.status(500).send('Server Error');
+    return res.status(500).send('Server Error');
   }
 });
 
