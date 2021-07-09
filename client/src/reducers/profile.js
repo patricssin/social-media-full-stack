@@ -21,7 +21,8 @@ export default function(state = initState, action) {
       return {
         ...state,
         error: payload,
-        loading: false
+        loading: false,
+        profile: null,
       }
     case 'GET_PROFILES':
       return {
@@ -32,7 +33,7 @@ export default function(state = initState, action) {
     case 'GET_REPOS':
       return {
         ...state,
-        repos: payload,
+        repos: [...payload],
         loading: false
       }
     case 'CLEAR_PROFILE':

@@ -7,9 +7,10 @@ import ProfileTop from './ProfileTop'
 import ProfileAbout from './ProfileAbout'
 import ProfileExperience from './ProfileExperience'
 import ProfileEducation from './ProfileEducation'
-import { getProfileById } from '../../actions/profile'
+import ProfileGithub from './ProfileGithub'
+import { getProfileById, getGithubRepos } from '../../actions/profile'
 
-const Profile = ({ getProfileById, profile: { profile, loading }, auth, match }) => {
+const Profile = ({ getProfileById, getGithubRepos, profile: { profile, loading, repos }, auth, match }) => {
   useEffect(() => {
     getProfileById(match.params.id)
   }, [getProfileById])
@@ -30,8 +31,8 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth, match })
           <ProfileTop profile={profile} />
           <ProfileAbout profile={profile} />
 
-          <div class="profile-exp bg-white p-2">
-            <h2 class="text-primary">Experience</h2>
+          <div className="profile-exp bg-white p-2">
+            <h2 className="text-primary">Experience</h2>
             {profile.experience.length > 0 ? (<Fragment>
               {profile.experience.map(experience => (
                 <ProfileExperience key={experience._id} experience={experience} />
@@ -40,20 +41,24 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth, match })
           </div>
 
           <div className="profile-edu bg-white p-2">
-              <h2 className="text-primary">Education</h2>
-              {profile.education.length > 0 ? (
-                <Fragment>
-                  {profile.education.map((education) => (
-                    <ProfileEducation
-                      key={education._id}
-                      education={education}
-                    />
-                  ))}
-                </Fragment>
-              ) : (
-                <h4>No education credentials</h4>
-              )}
-            </div>
+            <h2 className="text-primary">Education</h2>
+            {profile.education.length > 0 ? (
+              <Fragment>
+                {profile.education.map((education) => (
+                  <ProfileEducation
+                    key={education._id}
+                    education={education}
+                  />
+                ))}
+              </Fragment>
+            ) : (
+              <h4>No education credentials</h4>
+            )}
+          </div>
+
+          {/* {profile.githubusername && (
+              <ProfileGithub repos={repos} getGithubRepos={getGithubRepos} username={profile.githubusername} />
+            )} */}
         </div>
       </Fragment>}
     </>
@@ -66,7 +71,7 @@ Profile.propTypes = {
 
 const mapStateToProps = state => ({
   profile: state.profile,
-  auth: state.auth
+  auth: state.auth,
 })
 
-export default connect(mapStateToProps, { getProfileById })(Profile)
+export default connect(mapStateToProps, { getProfileById, getGithubRepos })(Profile)

@@ -57,7 +57,7 @@ export const getProfileById = userId => async (dispatch) => {
 }
 
 // get github repo
-export const getGithubRepo = userName => async (dispatch) => {
+export const getGithubRepos = userName => async (dispatch) => {
   dispatch({type: types.CLEAR_PROFILE})
   try {
     const res = await api.get(`/profile/github/${userName}`)
