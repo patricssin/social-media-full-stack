@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Spinner from '../layout/Spinner'
@@ -7,7 +6,7 @@ import ProfileTop from './ProfileTop'
 import ProfileAbout from './ProfileAbout'
 import ProfileExperience from './ProfileExperience'
 import ProfileEducation from './ProfileEducation'
-import ProfileGithub from './ProfileGithub'
+// import ProfileGithub from './ProfileGithub'
 import { getProfileById, getGithubRepos } from '../../actions/profile'
 
 const Profile = ({ getProfileById, getGithubRepos, profile: { profile, loading, repos }, auth, match }) => {

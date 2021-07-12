@@ -3,7 +3,7 @@ import React, {useEffect} from 'react'
 const ProfileGithub = ({ username, getGithubRepos, repos }) => {
   useEffect(() => {
     getGithubRepos(username)
-  }, [username])
+  }, [getGithubRepos, username])
 
   return (
     <div className="profile-github">
