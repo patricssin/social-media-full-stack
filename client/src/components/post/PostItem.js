@@ -3,9 +3,9 @@ import {Link} from 'react-router-dom'
 import Moment from 'react-moment'
 import {connect} from 'react-redux'
 
-import {addLikes, removeLikes} from '../../actions/post'
+import {addLikes, removeLikes, deletePost} from '../../actions/post'
 
-const PostItem = ({auth, post: {_id,  text, name, avatar, user, likes, comments, date}, addLikes, removeLikes}) => {
+const PostItem = ({auth, post: {_id,  text, name, avatar, user, likes, comments, date}, addLikes, removeLikes, deletePost}) => {
   return (
     <div className="post bg-white p-1 my-1">
       <div>
@@ -37,6 +37,7 @@ const PostItem = ({auth, post: {_id,  text, name, avatar, user, likes, comments,
         </Link>
         {!auth.loading && user === auth.user._id && 
           <button
+            onClick={e => deletePost(_id)}
             type="button"
             className="btn btn-danger"
           >
@@ -52,4 +53,4 @@ const mapStateToProps = state => ({
   auth: state.auth,
 })
 
-export default connect(mapStateToProps, {addLikes, removeLikes})(PostItem)
+export default connect(mapStateToProps, {addLikes, removeLikes, deletePost})(PostItem)

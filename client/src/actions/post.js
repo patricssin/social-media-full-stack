@@ -50,3 +50,21 @@ export const removeLikes = postId => async (dispatch) => {
     })
   }
 }
+// delete likes
+export const deletePost = postId => async (dispatch) => {
+  try {
+    const res = await api.put(`/posts/unlike/${postId}`)
+
+    dispatch({
+      type: types.DELETE_POST,
+      payload: postId,
+    })
+
+    dispatch(setAlert('Post removed.', 'success'))
+  } catch (error) {
+    dispatch({
+      type: types.PROFILE_ERROR,
+      payload: {msg: error.response.statusText, status: error.response.status}
+    })
+  }
+}
