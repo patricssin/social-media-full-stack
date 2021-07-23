@@ -68,3 +68,21 @@ export const deletePost = postId => async (dispatch) => {
     })
   }
 }
+// add likes
+export const addPost = formData => async (dispatch) => {
+  try {
+    const res = await api.post('/posts', formData)
+
+    dispatch({
+      type: types.ADD_POST,
+      payload: res.data,
+    })
+
+    dispatch(setAlert('Post created.', 'success'))
+  } catch (error) {
+    dispatch({
+      type: types.PROFILE_ERROR,
+      payload: {msg: error.response.statusText, status: error.response.status}
+    })
+  }
+}
