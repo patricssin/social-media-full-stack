@@ -15,6 +15,12 @@ export default function(state = initState, action) {
         posts: payload,
         loading: false
       }
+    case 'GET_POST':
+      return {
+        ...state,
+        post: payload,
+        loading: false
+      }
     case 'ADD_POSTS':
       return {
         ...state,

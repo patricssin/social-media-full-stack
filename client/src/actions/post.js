@@ -86,3 +86,19 @@ export const addPost = formData => async (dispatch) => {
     })
   }
 }
+// get post
+export const getPost = id => async (dispatch) => {
+  try {
+    const res = await api.get(`/posts/${id}`)
+
+    dispatch({
+      type: types.GET_POST,
+      payload: res.data,
+    })
+  } catch (error) {
+    dispatch({
+      type: types.PROFILE_ERROR,
+      payload: {msg: error.response.statusText, status: error.response.status}
+    })
+  }
+}
