@@ -10,7 +10,7 @@ connectDB();
 // app.use(bodyPasrse.json({ extended: false }))   // used to do
 app.use(express.json({ extended: false })); //make req body json, now express includes
 
-app.get('/', (req, res) => res.send('API Running'));
+// app.get('/', (req, res) => res.send('API Running'));
 
 // Define routes
 app.use('/api/users', require('./routes/api/users'));
