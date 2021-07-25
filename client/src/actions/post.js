@@ -34,7 +34,7 @@ export const addLikes = postId => async (dispatch) => {
     })
   }
 }
-// removelikes
+// remove likes
 export const removeLikes = postId => async (dispatch) => {
   try {
     const res = await api.put(`/posts/unlike/${postId}`)
@@ -50,7 +50,7 @@ export const removeLikes = postId => async (dispatch) => {
     })
   }
 }
-// delete likes
+// delete post
 export const deletePost = postId => async (dispatch) => {
   try {
     const res = await api.put(`/posts/unlike/${postId}`)
@@ -68,7 +68,7 @@ export const deletePost = postId => async (dispatch) => {
     })
   }
 }
-// add likes
+// add post
 export const addPost = formData => async (dispatch) => {
   try {
     const res = await api.post('/posts', formData)
@@ -95,6 +95,42 @@ export const getPost = id => async (dispatch) => {
       type: types.GET_POST,
       payload: res.data,
     })
+  } catch (error) {
+    dispatch({
+      type: types.PROFILE_ERROR,
+      payload: {msg: error.response.statusText, status: error.response.status}
+    })
+  }
+}
+// add comment
+export const addComment = (postId, formData) => async (dispatch) => {
+  try {
+    const res = await api.post(`/posts/comment/${postId}`, formData)
+
+    dispatch({
+      type: types.ADD_COMMENT,
+      payload: res.data,
+    })
+
+    dispatch(setAlert('Comment added.', 'success'))
+  } catch (error) {
+    dispatch({
+      type: types.PROFILE_ERROR,
+      payload: {msg: error.response.statusText, status: error.response.status}
+    })
+  }
+}
+// delete comment
+export const deleteComment = (postId, commentId) => async (dispatch) => {
+  try {
+    const res = await api.delete(`/posts/comment/${postId}/${commentId}`)
+
+    dispatch({
+      type: types.DELETE_COMMENT,
+      payload: commentId,
+    })
+
+    dispatch(setAlert('Comment deleted.', 'success'))
   } catch (error) {
     dispatch({
       type: types.PROFILE_ERROR,
